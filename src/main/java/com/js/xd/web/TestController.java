@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.js.xd.mapper.UserMapper;
 import com.js.xd.model.User;
+import com.js.xd.service.WXDataService;
+import com.js.xd.service.XDPushDataService;
+import com.js.xd.util.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +25,12 @@ public class TestController {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private WXDataService wxDataService;
+    @Autowired
+    private XDPushDataService xdPushDataService;
 
-    @PostMapping("bbb")
+    @GetMapping("bbb")
     @ResponseBody
     @ApiOperation("数据库测试接口")
     public Object getTest(){
@@ -46,10 +51,27 @@ public class TestController {
     }
 
     @PostMapping("selectCars")
-    @ApiOperation("数据接受，返回测试接口")
+    @ApiOperation("查询发布的车辆信息")
     public Object selectCars(@RequestBody Map<String,Object> params){
-        Map<String,Object> result = params;
-        params.put("test","testData");
-        return result;
+
+        return xdPushDataService.getPushCarsInfo(params);
+    }
+
+    @PostMapping("getPushCarDetails")
+    @ApiOperation("查询发布的车辆信息明细")
+    public Object getPushCarDetails(@RequestBody Map<String,Object> params){
+
+        return ResultUtil.success(1,xdPushDataService.getPushCarsInfoDetails(Integer.parseInt(params.get("id").toString())),"获取成功");
+    }
+
+    @PostMapping("getWXopenid")
+    @ApiOperation("调用微信接口获取openid")
+    public Object getWXopenid(@RequestBody Map<String,String> params){
+        try {
+            String result = wxDataService.getWXOpenId(params.get("code"));
+            return ResultUtil.success(1,result,"");
+        } catch (Exception e) {
+            return ResultUtil.fail(0,"获取openid失败，请重试！");
+        }
     }
 }
