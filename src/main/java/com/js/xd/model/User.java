@@ -29,7 +29,7 @@ public class User {
         return userId;
     }
 
-    public void setUserId(String userId) {
+public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -40,4 +40,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

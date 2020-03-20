@@ -15,7 +15,7 @@ import java.util.Date;
  * @since 2020-3-18
  * @author fj
  */
-@TableName("XDPushData")
+@TableName("XD_PushData")
 public class XDPushData implements Serializable {
     /** id */
     @TableId(value = "id",type = IdType.AUTO)

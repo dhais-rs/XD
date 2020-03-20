@@ -13,7 +13,7 @@ import java.util.Date;
  * @since 2020-3-18
  * @author fj
  */
-@TableName("XDOwner")
+@TableName("XD_Owner")
 public class XDOwner implements Serializable{
     /** id;自增id */
     @TableId(value = "ID",type = IdType.AUTO)
