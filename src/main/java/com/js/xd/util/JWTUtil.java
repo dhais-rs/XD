@@ -1,5 +1,7 @@
 package com.js.xd.util;
 
+import com.js.xd.config.ServiceException;
+import com.js.xd.model.HttpCode;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -38,7 +40,7 @@ public class JWTUtil {
      * 检查token,只要不正确就会抛出异常
      **/
 
-    public static Claims checkToken(String token) throws ServletException {
+    public static Claims checkToken(String token) throws ServiceException {
 
         try {
 
@@ -48,11 +50,11 @@ public class JWTUtil {
 
         } catch (ExpiredJwtException e1) {
 
-            throw new ServletException("登录信息过期，请重新登录");
+            throw new ServiceException(HttpCode.FORBIDDEN,"登录信息过期，请重新登录");
 
         } catch (Exception e) {
 
-            throw new ServletException("用户未登录，请重新登录");
+            throw new ServiceException(HttpCode.UNAUTHORIZED,"用户未登录，请重新登录");
 
         }
 

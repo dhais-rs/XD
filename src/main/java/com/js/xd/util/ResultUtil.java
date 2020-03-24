@@ -27,4 +27,22 @@ public class ResultUtil {
         data.put("timestamp",System.currentTimeMillis());
         return data;
     }
+
+    public static Map<String,Object> fail(String info){
+        Map<String,Object> data = new HashMap<>();
+        data.put("code",0);
+        data.put("info",info);
+        data.put("total",0);
+        data.put("timestamp",System.currentTimeMillis());
+        return data;
+    }
+
+    public static Map<String,Object> notLogin(String info){
+        Map<String,Object> data = new HashMap<>();
+        data.put("code",2);
+        data.put("info",info);
+        data.put("total",0);
+        data.put("timestamp",System.currentTimeMillis());
+        return data;
+    }
 }

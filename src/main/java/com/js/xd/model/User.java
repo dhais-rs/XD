@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 public class User {
     @TableId(value = "id",type = IdType.AUTO)
     private int id;
-    @TableField("userId")
-    private String userId;
+    @TableField("userName")
+    private String userName;
     @TableField("password")
     private String password;
 
@@ -25,12 +25,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-public void setUserId(String userId) {
-        this.userId = userId;
+public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
