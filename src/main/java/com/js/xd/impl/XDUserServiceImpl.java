@@ -9,8 +9,12 @@ import com.js.xd.model.User;
 import com.js.xd.model.XDPushData;
 import com.js.xd.service.XDPushDataService;
 import com.js.xd.service.XDUserService;
+import com.js.xd.util.AESEncryptUtil;
+import com.js.xd.util.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +26,29 @@ import java.util.Map;
 @Component
 public class XDUserServiceImpl extends ServiceImpl<UserMapper, User> implements XDUserService {
 
+    /**
+     * 管理员登录接口
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<String,String> adminLogin(User user) throws Exception {
+
+        Map<String,String> rows = new HashMap<>();
+        String pad = AESEncryptUtil.desEncrypt(user.getPassword());
+        user.setPassword(pad);
+        Wrapper<User> userWrapper = new EntityWrapper<>();
+        userWrapper.eq("userId",user.getUserId());
+        userWrapper.eq("password",user.getPassword());
+        List<User> flag = baseMapper.selectList(userWrapper);
+        if(flag!=null&&!flag.isEmpty()){
+            User userInfo = flag.get(0);
+            String token = JWTUtil.getToken(user.getUserName());
+            token = "Bearer:" + token;
+            rows.put("token",token);
+            rows.put("user",userInfo.getUserName());
+        }
+        return rows;
+    }
 }

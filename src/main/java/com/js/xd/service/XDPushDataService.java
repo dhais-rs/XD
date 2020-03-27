@@ -16,4 +16,13 @@ import java.util.Map;
 public interface XDPushDataService extends IService<XDPushData> {
     List<XDPushData> getPushCarsInfo(Map<String,Object> params);
     XDPushData getPushCarsInfoDetails(Integer id);
+    /**
+     * 根据id删除数据
+     * @param id
+     */
+    void delPushCarsInfo(String id);
+    /**
+     * 获取发布信息汇总
+     */
+    Map<String,Object> queryTatolData();
 }

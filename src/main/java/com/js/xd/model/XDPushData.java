@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.Date;
 public class XDPushData implements Serializable {
     /** id */
     @TableId(value = "id",type = IdType.AUTO)
+    @JsonProperty("id")
     private Integer id ;
 
     /** 微信唯一标识 */
@@ -36,16 +38,16 @@ public class XDPushData implements Serializable {
     private String depPosition ;
 
     /** 出发详细地址 */
-    @TableField("dep_Dateil")
-    private String depDateil ;
+    @TableField("dep_Detail")
+    private String depDetail ;
 
     /** 目的地点 */
     @TableField("des_Position")
     private String desPosition ;
 
     /** 目的详细地址 */
-    @TableField("des_Dateil")
-    private String desDateil ;
+    @TableField("des_Detail")
+    private String desDetail ;
 
     /** 联系电话 */
     @TableField("phone_Num")
@@ -59,11 +61,16 @@ public class XDPushData implements Serializable {
     @TableField("seat_Num")
     private Integer seatNum ;
 
+    /** 状态 */
+    @TableField("state")
+    private String state ;
+
     /** 创建人 */
     @TableField("created_By")
     private String createdBy ;
 
     /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd hh-mm-ss")
     @TableField("created_Time")
     private Date createdTime ;
 
@@ -75,6 +82,70 @@ public class XDPushData implements Serializable {
     @TableField("updated_Time")
     private Date updatedTime ;
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public Date getDepDate() {
+        return depDate;
+    }
+
+    public void setDepDate(Date depDate) {
+        this.depDate = depDate;
+    }
+
+    public String getDepPosition() {
+        return depPosition;
+    }
+
+    public void setDepPosition(String depPosition) {
+        this.depPosition = depPosition;
+    }
+
+    public String getDepDetail() {
+        return depDetail;
+    }
+
+    public void setDepDetail(String depDetail) {
+        this.depDetail = depDetail;
+    }
+
+    public String getDesPosition() {
+        return desPosition;
+    }
+
+    public void setDesPosition(String desPosition) {
+        this.desPosition = desPosition;
+    }
+
+    public String getDesDetail() {
+        return desDetail;
+    }
+
+    public void setDesDetail(String desDetail) {
+        this.desDetail = desDetail;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
     public String getWXNum() {
         return WXNum;
     }
@@ -83,108 +154,51 @@ public class XDPushData implements Serializable {
         this.WXNum = WXNum;
     }
 
-    /** id */
-    public Integer getId(){
-        return this.id;
+    public Integer getSeatNum() {
+        return seatNum;
     }
-    /** id */
-    public void setId(Integer id){
-        this.id = id;
-    }
-    /** 微信唯一标识 */
-    public String getOpenId(){
-        return this.openId;
-    }
-    /** 微信唯一标识 */
-    public void setOpenId(String openId){
-        this.openId = openId;
-    }
-    /** 出发时间 */
-    public Date getDepDate(){
-        return this.depDate;
-    }
-    /** 出发时间 */
-    public void setDepDate(Date depDate){
-        this.depDate = depDate;
-    }
-    /** 出发地点 */
-    public String getDepPosition(){
-        return this.depPosition;
-    }
-    /** 出发地点 */
-    public void setDepPosition(String depPosition){
-        this.depPosition = depPosition;
-    }
-    /** 出发详细地址 */
-    public String getDepDateil(){
-        return this.depDateil;
-    }
-    /** 出发详细地址 */
-    public void setDepDateil(String depDateil){
-        this.depDateil = depDateil;
-    }
-    /** 目的地点 */
-    public String getDesPosition(){
-        return this.desPosition;
-    }
-    /** 目的地点 */
-    public void setDesPosition(String desPosition){
-        this.desPosition = desPosition;
-    }
-    /** 目的详细地址 */
-    public String getDesDateil(){
-        return this.desDateil;
-    }
-    /** 目的详细地址 */
-    public void setDesDateil(String desDateil){
-        this.desDateil = desDateil;
-    }
-    /** 联系电话 */
-    public String getPhoneNum(){
-        return this.phoneNum;
-    }
-    /** 联系电话 */
-    public void setPhoneNum(String phoneNum){
-        this.phoneNum = phoneNum;
-    }
-    /** 剩余座位 */
-    public Integer getSeatNum(){
-        return this.seatNum;
-    }
-    /** 剩余座位 */
-    public void setSeatNum(Integer seatNum){
+
+    public void setSeatNum(Integer seatNum) {
         this.seatNum = seatNum;
     }
-    /** 创建人 */
-    public String getCreatedBy(){
-        return this.createdBy;
+
+    public String getCreatedBy() {
+        return createdBy;
     }
-    /** 创建人 */
-    public void setCreatedBy(String createdBy){
+
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
-    /** 创建时间 */
-    public Date getCreatedTime(){
-        return this.createdTime;
+
+    public Date getCreatedTime() {
+        return createdTime;
     }
-    /** 创建时间 */
-    public void setCreatedTime(Date createdTime){
+
+    public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
-    /** 更新人 */
-    public String getUpdatedBy(){
-        return this.updatedBy;
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
-    /** 更新人 */
-    public void setUpdatedBy(String updatedBy){
+
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
-    /** 更新时间 */
-    public Date getUpdatedTime(){
-        return this.updatedTime;
+
+    public Date getUpdatedTime() {
+        return updatedTime;
     }
-    /** 更新时间 */
-    public void setUpdatedTime(Date updatedTime){
+
+    public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

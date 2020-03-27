@@ -18,7 +18,7 @@ public class webConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(new JWTInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");//放掉某些特定不需要校验token的路由
+                .excludePathPatterns("/**","/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");//放掉某些特定不需要校验token的路由
 
     }
 

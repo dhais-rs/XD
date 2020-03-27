@@ -16,5 +16,13 @@ import java.util.Map;
 @Service
 public interface XDNewDataService extends IService<XDNewData> {
     List<XDNewData> getNewDataInfo();
+    /**
+     * 获取当前公布的信息PC
+     * @return
+     */
+    List<XDNewData> getNewDataInfoForPC(Map<String, Object> params);
+
     XDNewData getDetails(String id);
+
+    void updataNewDataInfo(List<XDNewData> xDNewDatas);
 }

@@ -9,6 +9,7 @@ import com.js.xd.mapper.UserMapper;
 import com.js.xd.model.User;
 import com.js.xd.service.WXDataService;
 import com.js.xd.service.XDPushDataService;
+import com.js.xd.service.XDUserService;
 import com.js.xd.util.AESEncryptUtil;
 import com.js.xd.util.JWTUtil;
 import com.js.xd.util.ResultUtil;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class TestController {
 
     @Autowired
-    private UserMapper userMapper;
+    private XDUserService userService;
     @Autowired
     private WXDataService wxDataService;
     @Autowired
@@ -44,24 +45,11 @@ public class TestController {
         Wrapper<User> userWrapper = new EntityWrapper<>();
         userWrapper.eq("userName", 1);
         //使用继承了mybatis plus提供的BaseMapper  就可以使用父类中的方法进行crud
-        List<User> user = userMapper.selectList(userWrapper);
+        List<User> user = userService.selectList(userWrapper);
 
-        return userMapper.aaa();
+        return user;
     }
 
-    @PostMapping("selectCars")
-    @ApiOperation("查询发布的车辆信息")
-    public Object selectCars(@RequestBody Map<String, Object> params) {
-
-        return xdPushDataService.getPushCarsInfo(params);
-    }
-
-    @PostMapping("getPushCarDetails")
-    @ApiOperation("查询发布的车辆信息明细")
-    public Object getPushCarDetails(@RequestBody Map<String, Object> params) {
-
-        return ResultUtil.success(1, xdPushDataService.getPushCarsInfoDetails(Integer.parseInt(params.get("id").toString())), "获取成功");
-    }
 
     @PostMapping("getWXopenid")
     @ApiOperation("调用微信接口获取openid")
@@ -78,12 +66,10 @@ public class TestController {
     @ApiOperation("管理员登录接口")
     public Object login(@RequestBody User user) throws Exception {
 
-        String token = JWTUtil.getToken(user.getUserName());
-        Map<String,String> rows = new HashMap<>();
-        token = "Bearer:" + token;
-        rows.put("token",token);
-        String pad = AESEncryptUtil.desEncrypt(user.getPassword());
-        rows.put("userName", pad);
+        Map<String,String> rows = userService.adminLogin(user);
+        if(rows.isEmpty()){
+            return ResultUtil.fail("用户名或密码错误！");
+        }
         return ResultUtil.success(1,rows,"");
     }
 }

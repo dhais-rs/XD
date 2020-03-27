@@ -19,6 +19,13 @@ public class XDNewDataController {
     @Autowired
     private XDNewDataService xdNewDataService;
 
+    @PostMapping("/getNewDataForPc")
+    @ApiOperation("获取公布的信息数据PC")
+    public Object getNewDataInfoForPC(@RequestBody Map<String,Object> params){
+        List<XDNewData> results = xdNewDataService.getNewDataInfoForPC(params);
+        return ResultUtil.success(results.size(),results,"获取成功");
+    }
+
     @PostMapping("/getNewData")
     @ApiOperation("获取当前公布的信息数据")
     public Object getNewDataInfo(){
@@ -30,5 +37,19 @@ public class XDNewDataController {
     public Object getDetails(@RequestBody Map<String,Object> params){
         XDNewData result = xdNewDataService.getDetails(params.get("id").toString());
         return ResultUtil.success(1,result,"获取成功");
+    }
+
+    @PostMapping("/addNewData")
+    @ApiOperation("新增公布信息数据")
+    public Object addNewData(@RequestBody XDNewData newData){
+        xdNewDataService.insert(newData);
+        return ResultUtil.success("新增成功");
+    }
+
+    @PostMapping("/updateNewData")
+    @ApiOperation("修改公布信息数据")
+    public Object updateNewData(@RequestBody List<XDNewData> newDatas){
+        xdNewDataService.updataNewDataInfo(newDatas);
+        return ResultUtil.success("修改成功");
     }
 }
