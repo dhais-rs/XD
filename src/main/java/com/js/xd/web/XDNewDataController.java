@@ -42,7 +42,7 @@ public class XDNewDataController {
     @PostMapping("/addNewData")
     @ApiOperation("新增公布信息数据")
     public Object addNewData(@RequestBody XDNewData newData){
-        xdNewDataService.insert(newData);
+        xdNewDataService.addNewData(newData);
         return ResultUtil.success("新增成功");
     }
 
@@ -51,5 +51,12 @@ public class XDNewDataController {
     public Object updateNewData(@RequestBody List<XDNewData> newDatas){
         xdNewDataService.updataNewDataInfo(newDatas);
         return ResultUtil.success("修改成功");
+    }
+
+    @PostMapping("/updateNewState")
+    @ApiOperation("公布信息数据关闭激活")
+    public Object updateNewState(@RequestBody Map<String,String> newDatas){
+        xdNewDataService.updateNewState(newDatas);
+        return ResultUtil.success("操作成功");
     }
 }

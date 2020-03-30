@@ -12,6 +12,7 @@ import com.js.xd.service.XDPushDataService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class XDNewDataServiceImpl extends ServiceImpl<XDNewDataMapper, XDNewData
      * 更新公布信息
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updataNewDataInfo(List<XDNewData> xDNewDatas) {
         for(XDNewData item:xDNewDatas){
             Wrapper<XDNewData> newDataWrapper = new EntityWrapper<>();
@@ -78,7 +79,41 @@ public class XDNewDataServiceImpl extends ServiceImpl<XDNewDataMapper, XDNewData
             item.setCreatedBy(null);
             item.setCreatedTime(null);
             item.setId(null);
+            item.setUpdatedTime(new Date());
             baseMapper.update(item,newDataWrapper);
         }
+    }
+
+    /**
+     * 根据id批量关闭激活公布数据
+     * @param params
+     */
+    @Override
+    public void updateNewState(Map<String, String> params){
+        String flag = params.get("flag"); //关闭/激活 标识 0关闭 1激活
+        String ids = params.get("ids");
+        if("0".equals(flag)){
+            Wrapper<XDNewData> wrapper = new EntityWrapper<>();
+            wrapper.in("id",ids.split(","));
+            XDNewData xdNewData = new XDNewData();
+            xdNewData.setDisplay("1");
+            baseMapper.update(xdNewData,wrapper);
+        }else{
+            Wrapper<XDNewData> wrapper = new EntityWrapper<>();
+            wrapper.in("id",ids.split(","));
+            XDNewData xdNewData = new XDNewData();
+            xdNewData.setDisplay("0");
+            baseMapper.update(xdNewData,wrapper);
+        }
+    }
+
+    /**
+     * 新增公布数据
+     * @param xdNewData
+     */
+    @Override
+    public void addNewData(XDNewData xdNewData){
+        xdNewData.setCreatedTime(new Date());
+        baseMapper.insert(xdNewData);
     }
 }

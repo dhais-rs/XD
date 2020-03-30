@@ -25,4 +25,14 @@ public interface XDNewDataService extends IService<XDNewData> {
     XDNewData getDetails(String id);
 
     void updataNewDataInfo(List<XDNewData> xDNewDatas);
+    /**
+     * 根据id批量关闭激活公布数据
+     * @param params
+     */
+    void updateNewState(Map<String, String> params);
+    /**
+     * 新增公布数据
+     * @param xdNewData
+     */
+    void addNewData(XDNewData xdNewData);
 }
