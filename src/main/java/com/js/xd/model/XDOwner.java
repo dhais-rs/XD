@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +32,9 @@ public class XDOwner implements Serializable{
     /** 真实姓名 */
     @TableField("name")
     private String name ;
+    /** 电话号码 */
+    @TableField("phone_num")
+    private String phoneNum ;
     /** 车主身份证号 */
     @TableField("id_Card")
     private String idCard ;
@@ -41,13 +46,25 @@ public class XDOwner implements Serializable{
     private String createdBy ;
     /** 创建时间 */
     @TableField("created_Time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdTime ;
     /** 更新人 */
     @TableField("updated_By")
     private String updatedBy ;
     /** 更新时间 */
     @TableField("updated_Time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedTime ;
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
     /** id;自增id */
     public Integer getId(){

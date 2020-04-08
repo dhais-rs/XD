@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/")
 @Api(value = "swagger 测试接口", description = "swagger 测试接口")
 public class TestController {
 

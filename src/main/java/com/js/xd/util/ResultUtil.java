@@ -19,6 +19,15 @@ public class ResultUtil {
         data.put("timestamp",System.currentTimeMillis());
         return data;
     }
+    public static Map<String,Object> success(Long total ,Object rows,String info){
+        Map<String,Object> data = new HashMap<>();
+        data.put("code",1);
+        data.put("info",info);
+        data.put("total",total);
+        data.put("rows",rows);
+        data.put("timestamp",System.currentTimeMillis());
+        return data;
+    }
     public static Map<String,Object> success(String info){
         Map<String,Object> data = new HashMap<>();
         data.put("code",1);

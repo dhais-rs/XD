@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/pushData")
-@Api(value="发布信息接口", description = "公布信息接口")
+@Api(value="发布信息接口", description = "发布信息接口")
 public class XDPushDataController {
 
     @Autowired

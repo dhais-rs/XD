@@ -18,7 +18,7 @@ public class webConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(new JWTInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/**","/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");//放掉某些特定不需要校验token的路由
+                .excludePathPatterns("/**","/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/static/**");//放掉某些特定不需要校验token的路由
 
     }
 
@@ -27,7 +27,10 @@ public class webConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/static/images/**")
+                .addResourceLocations("file:/E:/upload/");
     }
+
                 /*
                 因为配置了拦截器，拦截器会先执行，导致跨域失败，所以不把跨域配置写到拦截器，而是写到过滤器
                 */
