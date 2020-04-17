@@ -40,4 +40,10 @@ public interface XDOwnerService extends IService<XDOwner> {
      * @return
      */
     String getExamineStatus(String openId);
+    /**
+     * 审核是否通过
+     * @param openId
+     * @return
+     */
+    XDOwner getOwnerExamineFlag(String openId);
 }
