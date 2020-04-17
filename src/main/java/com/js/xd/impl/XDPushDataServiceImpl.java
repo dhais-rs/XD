@@ -85,4 +85,27 @@ public class XDPushDataServiceImpl extends ServiceImpl<XDPushDataMapper,XDPushDa
         result.put("current",current);
         return result;
     }
+    /**
+     * 发布信息
+     */
+    @Override
+    public void pushCarData(XDPushData pushData){
+        pushData.setCreatedTime(new Date());
+        pushData.setState("0");
+        baseMapper.insert(pushData);
+    }
+
+    /**
+     * 获取个人发布历史
+     * @param params
+     * @return
+     */
+    @Override
+    public List<XDPushData> queryPushDataHistory(Map<String,String> params){
+        Wrapper<XDPushData> wrapper = new EntityWrapper<>();
+        wrapper.eq("OPEN_ID",params.get("openId"));
+        wrapper.orderBy("created_time",false);
+//        wrapper.eq("state",params.get("state"));
+        return baseMapper.selectList(wrapper);
+    }
 }
