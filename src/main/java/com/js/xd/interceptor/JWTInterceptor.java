@@ -30,22 +30,13 @@ public class JWTInterceptor extends HandlerInterceptorAdapter {
             response.setStatus(HttpStatus.NO_CONTENT.value());
             return true;
         }
+        if (authHeader.startsWith("wx")) {
+            return true;
+        }
         if (authHeader == null || !authHeader.startsWith("Bearer:")) {
             throw new ServiceException("用户未登录");
-//            PrintWriter out = null;
-//            try {
-//                JSONObject res = new JSONObject();
-//                res.put("success", false);
-//                res.put("message", "用户未登录！");
-//                out = response.getWriter();
-//                out.append(JSON.toJSONString(ResultUtil.notLogin("用户未登录！")));
-//                return false;
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                response.sendError(500);
-//                return false;
-//            }
         }
+
 
         //取得token
         String token = authHeader.substring(7);

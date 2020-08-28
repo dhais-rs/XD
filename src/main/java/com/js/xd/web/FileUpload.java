@@ -23,7 +23,7 @@ public class FileUpload {
     @ResponseBody
     public Object upload(@RequestBody MultipartFile fileUpload, HttpServletRequest request) {
         //定义要上传文件 的存放路径
-        String localPath="E:/upload/";
+        String localPath="/root/javaService/XD/fileUpload/";
         //获得文件名字
         String fileName=fileUpload.getOriginalFilename();
         fileName= FileNameUtil.getFileName(fileName);
@@ -36,7 +36,7 @@ public class FileUpload {
             String requestURI = request.getRequestURI();
             // 得到去掉了uri的路径
             String url = requestURL.substring(0, requestURL.length()-requestURI.length() + 1);
-            url="http://127.0.0.1:9999/XD/static/images/"+ fileName;
+            url="http://154.8.136.28/XD/static/images/"+ fileName;
 
 
             return  ResultUtil.success(url);

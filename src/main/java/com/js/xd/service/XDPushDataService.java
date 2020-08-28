@@ -25,4 +25,14 @@ public interface XDPushDataService extends IService<XDPushData> {
      * 获取发布信息汇总
      */
     Map<String,Object> queryTatolData();
+    /**
+     * 发布信息
+     */
+    void pushCarData(XDPushData pushData);
+    /**
+     * 获取个人发布历史
+     * @param params
+     * @return
+     */
+    List<XDPushData> queryPushDataHistory(Map<String, String> params);
 }

@@ -18,7 +18,7 @@ public class webConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(new JWTInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/**","/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/static/**");//放掉某些特定不需要校验token的路由
+                .excludePathPatterns("/**","/fileUpload/**","/adminLogin", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/static/**");//放掉某些特定不需要校验token的路由
 
     }
 
@@ -28,7 +28,7 @@ public class webConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("/static/images/**")
-                .addResourceLocations("file:/E:/upload/");
+                .addResourceLocations("file:/root/javaService/XD/fileUpload/");
     }
 
                 /*

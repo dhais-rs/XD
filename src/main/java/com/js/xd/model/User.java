@@ -18,6 +18,16 @@ public class User {
     private String userName;
     @TableField("password")
     private String password;
+    @TableField("level")
+    private String level;
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public String getUserId() {
         return userId;

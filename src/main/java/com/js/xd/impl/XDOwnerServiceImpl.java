@@ -32,14 +32,24 @@ public class XDOwnerServiceImpl extends ServiceImpl<XDOwnerMapper, XDOwner> impl
         //分页参数
         Page<XDOwner> page = new Page<XDOwner>(Integer.parseInt(params.get("current").toString()),Integer.parseInt(params.get("size").toString()));
         Wrapper<XDOwner> wrapper = new EntityWrapper<>();
-        //审核状态
-//        if(params.get("examine")!=null&&params.get("examine").toString().length()!=0){
-//            wrapper.eq("examine",params.get("examine"));
-//        }
-        wrapper.eq("examine","0");
+        //        审核状态
+        if(params.get("examine")!=null&&params.get("examine").toString().length()!=0){
+            if("4".equals(params.get("examine").toString())){
+                wrapper.eq("examine","4");
+            }else if("3".equals(params.get("examine").toString())){
+                wrapper.eq("examine","3");
+            }else{
+                wrapper.notIn("examine","4");
+                wrapper.notIn("examine","3");
+            }
+        }
         //姓名
         if(params.get("name")!=null&&params.get("name").toString().length()!=0){
             wrapper.eq("name",params.get("name"));
+        }
+        //车牌号
+        if(params.get("carNum")!=null&&params.get("carNum").toString().length()!=0){
+            wrapper.eq("CAR_NUM",params.get("carNum"));
         }
         //开始时间
         if(params.get("startDate")!=null&&params.get("startDate").toString().length()!=0){
@@ -82,20 +92,22 @@ public class XDOwnerServiceImpl extends ServiceImpl<XDOwnerMapper, XDOwner> impl
      */
     @Override
     public void addExamineData(XDOwner owner) throws ServiceException {
-        owner.setExamine("0");
+        if(!"0".equals(owner.getExamine()))
+            owner.setExamine("3");
         owner.setCreatedTime(new Date());
         Wrapper<XDOwner> wrapper = new EntityWrapper<>();
         if(owner.getOpenId().length()==0)
             throw new ServiceException("id不能为空！");
         wrapper.eq("open_id",owner.getOpenId());
-        wrapper.and("(examine='0' or examine='1' or examine='2')");
+//        wrapper.and("(examine='0' or examine='1' or examine='2')");
         List<XDOwner> ownerList = baseMapper.selectList(wrapper);
         if(ownerList!=null&&!ownerList.isEmpty()){
             String status = ownerList.get(0).getExamine();
-            if("2".equals(status)){
+            if("2".equals(status)||"0".equals(status)){
                 Wrapper<XDOwner> examineWrapper = new EntityWrapper<>();
                 examineWrapper.eq("open_id",owner.getOpenId());
-                baseMapper.update(owner,examineWrapper);
+                if(!"0".equals(owner.getExamine()))
+                    baseMapper.update(owner,examineWrapper);
             }else {
                 throw new ServiceException("您已申请过审核了！");
             }
@@ -118,7 +130,24 @@ public class XDOwnerServiceImpl extends ServiceImpl<XDOwnerMapper, XDOwner> impl
         if(result!=null&&!result.isEmpty()){
             return result.get(0).getExamine();
         }else{
-            return "-1";
+            return "0";
+        }
+    }
+    /**
+     * 审核是否通过
+     * @param openId
+     * @return
+     */
+    @Override
+    public XDOwner getOwnerExamineFlag(String openId){
+        Wrapper<XDOwner> wrapper = new EntityWrapper<>();
+        wrapper.eq("open_id",openId);
+        wrapper.eq("EXAMINE","1");
+        List<XDOwner> result = baseMapper.selectList(wrapper);
+        if(result!=null&&!result.isEmpty()){
+            return result.get(0);
+        }else{
+            return null;
         }
     }
 }

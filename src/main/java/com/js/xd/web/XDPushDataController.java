@@ -40,9 +40,21 @@ public class XDPushDataController {
         return ResultUtil.success("操作成功！");
     }
     @GetMapping("queryTatolData")
-    @ApiOperation("根据id删除数据")
+    @ApiOperation("查询汇总数据")
     public Object queryTatolData(){
         Map<String,Object> result = xdPushDataService.queryTatolData();
         return ResultUtil.success(1,result,"");
+    }
+    @PostMapping("pushCarData")
+    @ApiOperation("发布信息")
+    public Object pushCarData(@RequestBody XDPushData params){
+        xdPushDataService.pushCarData(params);
+        return ResultUtil.success("操作成功！");
+    }
+    @PostMapping("pushDataHistory")
+    @ApiOperation("获取个人发布历史")
+    public Object queryPushDataHistory(@RequestBody Map<String, String> params){
+        List<XDPushData> result = xdPushDataService.queryPushDataHistory(params);
+        return ResultUtil.success(result.size(),result,"获取成功");
     }
 }

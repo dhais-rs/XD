@@ -26,11 +26,11 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return ResultUtil.notLogin(e.getMessage());
     }
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value=Exception.class)
-    public Object ExceptionHandler( Exception e)
-    {
-        e.printStackTrace();
-        return ResultUtil.fail("系统正在开小差！");
-    }
+//    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(value=Exception.class)
+//    public Object ExceptionHandler( Exception e)
+//    {
+//        e.printStackTrace();
+//        return ResultUtil.fail("系统正在开小差！");
+//    }
 }

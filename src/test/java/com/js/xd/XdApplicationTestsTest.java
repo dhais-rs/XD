@@ -1,16 +1,18 @@
 package com.js.xd;
 
 import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class XdApplicationTests {
 
+public class XdApplicationTestsTest {
     @Test
-    void contextLoads() {
-        int[] arr = {1,4,5,2,3,7,1,2,9,6};
+    public void contextLoads() {
+        int[] arr = {9,8,7,6,5,4,3,2,1};
         sort(arr,0,arr.length-1);
-        System.out.println(arr.toString());
+        for (int i : arr) {
+            System.out.print(i + "\t");
+        }
+        String cc = ",";
+        System.out.println("\n ---------------------------"+cc.split(",").length);
     }
 
     private void sort(int[] arr,int leftIndex,int rightIndex){
@@ -27,11 +29,10 @@ class XdApplicationTests {
             while(left<right&&arr[left]<=key){
                 left++;
             }
-            arr[left] = arr[right];
+            arr[right] = arr[left];
         }
         arr[left] = key;
         sort(arr,leftIndex,left-1);
         sort(arr,right+1,rightIndex);
     }
-
 }

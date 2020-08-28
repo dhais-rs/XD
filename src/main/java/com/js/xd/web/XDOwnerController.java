@@ -53,4 +53,12 @@ public class XDOwnerController {
         String result = service.getExamineStatus(openId);
         return ResultUtil.success(1,result,"查询成功！");
     }
+
+    @PostMapping("/getOwnerExamineFlag")
+    @ApiOperation("根据openid查询审核通过数据")
+    public Object getOwnerExamineFlag(@RequestBody Map<String,String> params){
+        String openId = params.get("openId");
+        XDOwner result = service.getOwnerExamineFlag(openId);
+        return ResultUtil.success(1,result,"查询成功！");
+    }
 }

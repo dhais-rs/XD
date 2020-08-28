@@ -48,6 +48,7 @@ public class XDUserServiceImpl extends ServiceImpl<UserMapper, User> implements 
             token = "Bearer:" + token;
             rows.put("token",token);
             rows.put("user",userInfo.getUserName());
+            rows.put("level",userInfo.getLevel());
         }
         return rows;
     }

@@ -1,26 +1,21 @@
 package com.js.xd.web;
 
 
-import com.auth0.jwt.JWT;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.js.xd.config.ServiceException;
-import com.js.xd.mapper.UserMapper;
 import com.js.xd.model.User;
+import com.js.xd.rocketmq.ProducerTest;
 import com.js.xd.service.WXDataService;
 import com.js.xd.service.XDPushDataService;
 import com.js.xd.service.XDUserService;
-import com.js.xd.util.AESEncryptUtil;
-import com.js.xd.util.JWTUtil;
 import com.js.xd.util.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 @Api(value = "swagger 测试接口", description = "swagger 测试接口")
-public class TestController {
+public class UserController {
 
     @Autowired
     private XDUserService userService;
@@ -36,6 +31,10 @@ public class TestController {
     private WXDataService wxDataService;
     @Autowired
     private XDPushDataService xdPushDataService;
+    @Autowired
+    private ProducerTest ProducerTest;
+    @Value("${a.1.a}")
+    private List<String> testProperties;
 
     @GetMapping("bbb")
     @ResponseBody
@@ -71,6 +70,20 @@ public class TestController {
             return ResultUtil.fail("用户名或密码错误！");
         }
         return ResultUtil.success(1,rows,"");
+    }
+
+    @PostMapping("rocketMqTest")
+    @ApiOperation("rocketTestInterface")
+    public Object recketTest() throws Exception {
+
+         ProducerTest.sendProducerTransaction();
+         return "1";
+    }
+
+    @PostMapping("propertiesTest")
+    @ApiOperation("properties")
+    public Object propertiesTest() throws Exception {
+        return testProperties.toString();
     }
 }
 

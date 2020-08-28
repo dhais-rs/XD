@@ -55,7 +55,7 @@ public class XDPushData implements Serializable {
 
     /** 微信号 */
     @TableField("WX_Num")
-    private String WXNum ;
+    private String wxNum ;
 
     /** 剩余座位 */
     @TableField("seat_Num")
@@ -146,12 +146,12 @@ public class XDPushData implements Serializable {
         this.phoneNum = phoneNum;
     }
 
-    public String getWXNum() {
-        return WXNum;
+    public String getWxNum() {
+        return wxNum;
     }
 
-    public void setWXNum(String WXNum) {
-        this.WXNum = WXNum;
+    public void setWxNum(String wxNum) {
+        this.wxNum = wxNum;
     }
 
     public Integer getSeatNum() {
